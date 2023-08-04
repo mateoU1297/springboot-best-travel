@@ -2,10 +2,18 @@ package com.udemy.best_travel.domain.entities;
 
 import com.udemy.best_travel.util.AeroLine;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
 @Entity(name = "fly")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Builder
 public class FlyEntity {
 
     @Id
