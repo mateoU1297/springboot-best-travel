@@ -20,18 +20,26 @@ public class ReservationEntity {
 
     @Id
     private UUID id;
+
     @Column(name = "date_reservation")
     private LocalDateTime dateTimeReservation;
+
     private LocalDate dateStart;
+
     private LocalDate dateEnd;
+
     private Integer totalDays;
+
     private BigDecimal price;
+
     @ManyToOne
     @JoinColumn(name = "hotel_id")
     private HotelEntity hotel;
+
     @ManyToOne
     @JoinColumn(name = "tour_id", nullable = true)
     private TourEntity tour;
+
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private CustomerEntity customer;
