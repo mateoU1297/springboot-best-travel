@@ -12,5 +12,6 @@ import lombok.NoArgsConstructor;
 public class ReservationRequest {
 
     private String idClient;
-    private String idHotel;
+    private Long idHotel;
+    private Integer totalDays;
 }

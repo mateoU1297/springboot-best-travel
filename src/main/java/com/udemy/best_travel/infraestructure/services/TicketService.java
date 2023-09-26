@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Transactional
@@ -30,6 +29,8 @@ public class TicketService implements ITicketService {
     private final CustomerRepository customerRepository;
     private final TicketRepository ticketRepository;
 
+    private static final BigDecimal charges_price_percentage = BigDecimal.valueOf(0.25);
+
     @Override
     public TicketResponse create(TicketRequest request) {
 
@@ -40,7 +41,7 @@ public class TicketService implements ITicketService {
                 .id(UUID.randomUUID())
                 .fly(fly)
                 .customer(customer)
-                .price(fly.getPrice().add(fly.getPrice().multiply(charger_price_percentage)))
+                .price(fly.getPrice().add(fly.getPrice().multiply(charges_price_percentage)))
                 .purchaseDate(LocalDate.now())
                 .departureDate(BestTravelUtil.getRandomSoon())
                 .arrivalDate(BestTravelUtil.getRandomLatter())
@@ -65,7 +66,7 @@ public class TicketService implements ITicketService {
         var fly = flyRepository.findById(request.getIdFly()).orElseThrow();
 
         ticketToUpdate.setFly(fly);
-        ticketToUpdate.setPrice(fly.getPrice().add(fly.getPrice().multiply(charger_price_percentage)));
+        ticketToUpdate.setPrice(fly.getPrice().add(fly.getPrice().multiply(charges_price_percentage)));
         ticketToUpdate.setDepartureDate(BestTravelUtil.getRandomSoon());
         ticketToUpdate.setArrivalDate(BestTravelUtil.getRandomLatter());
 
@@ -94,8 +95,6 @@ public class TicketService implements ITicketService {
     @Override
     public BigDecimal findPrice(Long flyId) {
         var fly = this.flyRepository.findById(flyId).orElseThrow();
-        return fly.getPrice().add(fly.getPrice().multiply(charger_price_percentage));
+        return fly.getPrice().add(fly.getPrice().multiply(charges_price_percentage));
     }
-
-    private static final BigDecimal charger_price_percentage = BigDecimal.valueOf(0.25);
 }

@@ -1,5 +1,6 @@
 package com.udemy.best_travel.api.models.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +18,7 @@ import java.util.UUID;
 public class ReservationResponse {
 
     private UUID id;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dateTimeReservation;
     private LocalDate dateStart;
     private LocalDate dateEnd;
