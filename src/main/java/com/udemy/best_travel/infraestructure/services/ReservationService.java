@@ -29,7 +29,7 @@ public class ReservationService implements IReservationService {
     private final CustomerRepository customerRepository;
     private final ReservationRepository reservationRepository;
 
-    private static final BigDecimal charges_price_percentage = BigDecimal.valueOf(0.20);
+    public static final BigDecimal charges_price_percentage = BigDecimal.valueOf(0.20);
 
     @Override
     public ReservationResponse create(ReservationRequest request) {

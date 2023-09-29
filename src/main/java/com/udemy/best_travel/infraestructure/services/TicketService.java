@@ -29,7 +29,7 @@ public class TicketService implements ITicketService {
     private final CustomerRepository customerRepository;
     private final TicketRepository ticketRepository;
 
-    private static final BigDecimal charges_price_percentage = BigDecimal.valueOf(0.25);
+    public static final BigDecimal charges_price_percentage = BigDecimal.valueOf(0.25);
 
     @Override
     public TicketResponse create(TicketRequest request) {
