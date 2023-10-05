@@ -8,6 +8,7 @@ import com.udemy.best_travel.domain.repositories.CustomerRepository;
 import com.udemy.best_travel.domain.repositories.FlyRepository;
 import com.udemy.best_travel.domain.repositories.TicketRepository;
 import com.udemy.best_travel.infraestructure.abstract_services.ITicketService;
+import com.udemy.best_travel.infraestructure.helpers.CustomerHelper;
 import com.udemy.best_travel.util.BestTravelUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +29,7 @@ public class TicketService implements ITicketService {
     private final FlyRepository flyRepository;
     private final CustomerRepository customerRepository;
     private final TicketRepository ticketRepository;
+    private final CustomerHelper customerHelper;
 
     public static final BigDecimal charges_price_percentage = BigDecimal.valueOf(0.25);
 
@@ -48,6 +50,8 @@ public class TicketService implements ITicketService {
                 .build();
 
         var ticketPersisted = this.ticketRepository.save(ticketToPersist);
+
+        this.customerHelper.incrase(customer.getDni(), TicketService.class);
 
         log.info("Ticket saved with id: {}", ticketPersisted.getId());
 

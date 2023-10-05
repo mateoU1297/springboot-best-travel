@@ -8,6 +8,7 @@ import com.udemy.best_travel.domain.repositories.CustomerRepository;
 import com.udemy.best_travel.domain.repositories.HotelRepository;
 import com.udemy.best_travel.domain.repositories.ReservationRepository;
 import com.udemy.best_travel.infraestructure.abstract_services.IReservationService;
+import com.udemy.best_travel.infraestructure.helpers.CustomerHelper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -28,6 +29,7 @@ public class ReservationService implements IReservationService {
     private final HotelRepository hotelRepository;
     private final CustomerRepository customerRepository;
     private final ReservationRepository reservationRepository;
+    private final CustomerHelper customerHelper;
 
     public static final BigDecimal charges_price_percentage = BigDecimal.valueOf(0.20);
 
@@ -48,6 +50,8 @@ public class ReservationService implements IReservationService {
                 .build();
 
         var reservationPersisted = reservationRepository.save(reservationToPersist);
+
+        this.customerHelper.incrase(customer.getDni(), ReservationService.class);
 
         return this.entityToResponse(reservationPersisted);
     }

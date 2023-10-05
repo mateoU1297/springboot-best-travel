@@ -8,6 +8,7 @@ import com.udemy.best_travel.domain.repositories.FlyRepository;
 import com.udemy.best_travel.domain.repositories.HotelRepository;
 import com.udemy.best_travel.domain.repositories.TourRepository;
 import com.udemy.best_travel.infraestructure.abstract_services.ITourService;
+import com.udemy.best_travel.infraestructure.helpers.CustomerHelper;
 import com.udemy.best_travel.infraestructure.helpers.TourHelper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,7 @@ public class TourService implements ITourService {
     private final HotelRepository hotelRepository;
     private final CustomerRepository customerRepository;
     private final TourHelper tourHelper;
+    private final CustomerHelper customerHelper;
 
     @Override
     public TourResponse create(TourRequest request) {
@@ -45,6 +47,8 @@ public class TourService implements ITourService {
                 .build();
 
         var tourSaved = this.tourRepository.save(tourToSave);
+
+        this.customerHelper.incrase(customer.getDni(), TourService.class);
 
         return  TourResponse.builder()
                 .reservationIds(tourSaved.getReservations()
@@ -91,11 +95,18 @@ public class TourService implements ITourService {
 
     @Override
     public void removeReservation(UUID reservationId, Long tourId) {
-
+        var tourUpdate = this.tourRepository.findById(tourId).orElseThrow();
+        tourUpdate.removeReservation(reservationId);
+        this.tourRepository.save(tourUpdate);
     }
 
     @Override
-    public UUID addReservation(Long reservationId, Long tourId) {
-        return null;
+    public UUID addReservation(Long hotelId, Long tourId, Integer totalDays) {
+        var tourUpdate = this.tourRepository.findById(tourId).orElseThrow();
+        var hotel = this.hotelRepository.findById(hotelId).orElseThrow();
+        var reservation = this.tourHelper.createReservation(hotel, tourUpdate.getCustomer(), totalDays);
+        tourUpdate.addReservation(reservation);
+        this.tourRepository.save(tourUpdate);
+        return reservation.getId();
     }
 }
