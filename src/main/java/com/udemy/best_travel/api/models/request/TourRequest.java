@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -15,7 +14,7 @@ import java.util.Set;
 @Builder
 public class TourRequest {
 
-    private Serializable customerId;
+    private String customerId;
     private Set<TourFlyRequest> flights;
     private Set<TourHotelRequest> hotels;
 }
