@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.util.List;
+import java.util.Map;
 
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
@@ -15,5 +15,5 @@ import java.util.List;
 @SuperBuilder
 public class ErrorsResponse extends BaseErrorResponse {
 
-    private List<String> errors;
+    private Map<String, String> errors;
 }

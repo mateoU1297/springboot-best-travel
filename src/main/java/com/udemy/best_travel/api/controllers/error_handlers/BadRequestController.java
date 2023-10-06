@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 @RestControllerAdvice
 @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -27,9 +27,9 @@ public class BadRequestController {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public BaseErrorResponse handleArgumentNotValid(MethodArgumentNotValidException exception) {
-        var errors = new ArrayList<String>();
+        var errors = new HashMap<String, String>();
 
-        exception.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
+        exception.getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
 
         return ErrorsResponse.builder()
                 .errors(errors)

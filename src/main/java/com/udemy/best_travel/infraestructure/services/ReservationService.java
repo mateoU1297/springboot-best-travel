@@ -10,6 +10,8 @@ import com.udemy.best_travel.domain.repositories.ReservationRepository;
 import com.udemy.best_travel.infraestructure.abstract_services.IReservationService;
 import com.udemy.best_travel.infraestructure.helpers.BlackListHelper;
 import com.udemy.best_travel.infraestructure.helpers.CustomerHelper;
+import com.udemy.best_travel.util.BestTravelUtil;
+import com.udemy.best_travel.util.enums.Tables;
 import com.udemy.best_travel.util.exceptions.IdNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,19 +36,15 @@ public class ReservationService implements IReservationService {
     private final CustomerHelper customerHelper;
     private final BlackListHelper blackListHelper;
 
-    private static final String EXCEPTION_HOTEL = "hotel";
-    private static final String EXCEPTION_CUSTOMER = "customer";
-    private static final String EXCEPTION_RESERVATION = "reservation";
-
     public static final BigDecimal charges_price_percentage = BigDecimal.valueOf(0.20);
 
     @Override
     public ReservationResponse create(ReservationRequest request) {
         blackListHelper.isInBlackListCustomer(request.getIdClient());
         var hotel = this.hotelRepository.findById(request.getIdHotel())
-                .orElseThrow(() -> new IdNotFoundException(EXCEPTION_HOTEL));
+                .orElseThrow(() -> new IdNotFoundException(Tables.hotel.name()));
         var customer = this.customerRepository.findById(request.getIdClient())
-                .orElseThrow(() -> new IdNotFoundException(EXCEPTION_CUSTOMER));
+                .orElseThrow(() -> new IdNotFoundException(Tables.customer.name()));
 
         var reservationToPersist = ReservationEntity.builder()
                 .id(UUID.randomUUID())
@@ -69,17 +67,17 @@ public class ReservationService implements IReservationService {
     @Override
     public ReservationResponse read(UUID id) {
         var reservationFromDB = this.reservationRepository.findById(id)
-                .orElseThrow(() -> new IdNotFoundException(EXCEPTION_RESERVATION));
+                .orElseThrow(() -> new IdNotFoundException(Tables.reservation.name()));
         return this.entityToResponse(reservationFromDB);
     }
 
     @Override
     public ReservationResponse update(ReservationRequest request, UUID id) {
         var hotel = this.hotelRepository.findById(request.getIdHotel())
-                .orElseThrow(() -> new IdNotFoundException(EXCEPTION_HOTEL));
+                .orElseThrow(() -> new IdNotFoundException(Tables.hotel.name()));
 
         var reservationToUpdate = this.reservationRepository.findById(id)
-                .orElseThrow(() -> new IdNotFoundException(EXCEPTION_RESERVATION));
+                .orElseThrow(() -> new IdNotFoundException(Tables.reservation.name()));
 
         reservationToUpdate.setHotel(hotel);
         reservationToUpdate.setTotalDays(request.getTotalDays());
@@ -97,13 +95,14 @@ public class ReservationService implements IReservationService {
     @Override
     public void delete(UUID id) {
         var reservationToDelete = reservationRepository.findById(id)
-                .orElseThrow(() -> new IdNotFoundException(EXCEPTION_RESERVATION));
+                .orElseThrow(() -> new IdNotFoundException(Tables.reservation.name()));
         this.reservationRepository.delete(reservationToDelete);
     }
 
     @Override
     public BigDecimal findPrice(Long hotelId) {
-        var hotel = this.hotelRepository.findById(hotelId).orElseThrow(() -> new IdNotFoundException(EXCEPTION_HOTEL));
+        var hotel = this.hotelRepository.findById(hotelId)
+                .orElseThrow(() -> new IdNotFoundException(Tables.hotel.name()));
         return hotel.getPrice().add(hotel.getPrice().multiply(charges_price_percentage));
     }
 
