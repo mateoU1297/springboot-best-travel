@@ -8,6 +8,7 @@ import com.udemy.best_travel.domain.repositories.CustomerRepository;
 import com.udemy.best_travel.domain.repositories.HotelRepository;
 import com.udemy.best_travel.domain.repositories.ReservationRepository;
 import com.udemy.best_travel.infraestructure.abstract_services.IReservationService;
+import com.udemy.best_travel.infraestructure.helpers.BlackListHelper;
 import com.udemy.best_travel.infraestructure.helpers.CustomerHelper;
 import com.udemy.best_travel.util.exceptions.IdNotFoundException;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,7 @@ public class ReservationService implements IReservationService {
     private final CustomerRepository customerRepository;
     private final ReservationRepository reservationRepository;
     private final CustomerHelper customerHelper;
+    private final BlackListHelper blackListHelper;
 
     private static final String EXCEPTION_HOTEL = "hotel";
     private static final String EXCEPTION_CUSTOMER = "customer";
@@ -40,6 +42,7 @@ public class ReservationService implements IReservationService {
 
     @Override
     public ReservationResponse create(ReservationRequest request) {
+        blackListHelper.isInBlackListCustomer(request.getIdClient());
         var hotel = this.hotelRepository.findById(request.getIdHotel())
                 .orElseThrow(() -> new IdNotFoundException(EXCEPTION_HOTEL));
         var customer = this.customerRepository.findById(request.getIdClient())

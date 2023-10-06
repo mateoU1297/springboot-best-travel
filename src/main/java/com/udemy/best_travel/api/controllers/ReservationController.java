@@ -1,10 +1,9 @@
 package com.udemy.best_travel.api.controllers;
 
 import com.udemy.best_travel.api.models.request.ReservationRequest;
-import com.udemy.best_travel.api.models.request.TicketRequest;
 import com.udemy.best_travel.api.models.response.ReservationResponse;
-import com.udemy.best_travel.api.models.response.TicketResponse;
 import com.udemy.best_travel.infraestructure.abstract_services.IReservationService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +21,7 @@ public class ReservationController {
     private final IReservationService reservationService;
 
     @PostMapping
-    public ResponseEntity<ReservationResponse> post(@RequestBody ReservationRequest request) {
+    public ResponseEntity<ReservationResponse> post(@Valid @RequestBody ReservationRequest request) {
         return ResponseEntity.ok(reservationService.create(request));
     }
 
@@ -32,7 +31,9 @@ public class ReservationController {
     }
 
     @PutMapping(path = "{id}")
-    public ResponseEntity<ReservationResponse> put(@PathVariable UUID id, @RequestBody ReservationRequest request) {
+    public ResponseEntity<ReservationResponse> put(
+            @PathVariable UUID id,
+            @Valid @RequestBody ReservationRequest request) {
         return ResponseEntity.ok(reservationService.update(request, id));
     }
 
