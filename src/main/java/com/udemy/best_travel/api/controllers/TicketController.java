@@ -3,6 +3,7 @@ package com.udemy.best_travel.api.controllers;
 import com.udemy.best_travel.api.models.request.TicketRequest;
 import com.udemy.best_travel.api.models.response.TicketResponse;
 import com.udemy.best_travel.infraestructure.abstract_services.ITicketService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping(path = "ticket")
 @AllArgsConstructor
+@Tag(name = "Ticket")
 public class TicketController {
 
     private final ITicketService ticketService;

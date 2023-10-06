@@ -3,6 +3,8 @@ package com.udemy.best_travel.api.controllers;
 import com.udemy.best_travel.api.models.request.TourRequest;
 import com.udemy.best_travel.api.models.response.TourResponse;
 import com.udemy.best_travel.infraestructure.abstract_services.ITourService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +17,12 @@ import java.util.UUID;
 @RestController
 @RequestMapping(path = "tour")
 @AllArgsConstructor
+@Tag(name = "Tour")
 public class TourController {
 
     private final ITourService tourService;
 
+    @Operation(summary = "save in system a tour based in list of hotels and flights")
     @PostMapping
     public ResponseEntity<TourResponse> post(@Valid @RequestBody TourRequest request) {
         return ResponseEntity.ok(this.tourService.create(request));
