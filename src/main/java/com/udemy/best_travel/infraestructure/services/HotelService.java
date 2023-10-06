@@ -4,7 +4,7 @@ import com.udemy.best_travel.api.models.response.HotelResponse;
 import com.udemy.best_travel.domain.entities.HotelEntity;
 import com.udemy.best_travel.domain.repositories.HotelRepository;
 import com.udemy.best_travel.infraestructure.abstract_services.IHotelService;
-import com.udemy.best_travel.util.SortType;
+import com.udemy.best_travel.util.enums.SortType;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Transactional
+@Transactional(readOnly = true)
 @Service
 @AllArgsConstructor
 public class HotelService implements IHotelService {

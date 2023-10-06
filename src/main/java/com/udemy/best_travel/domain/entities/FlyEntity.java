@@ -1,6 +1,6 @@
 package com.udemy.best_travel.domain.entities;
 
-import com.udemy.best_travel.util.AeroLine;
+import com.udemy.best_travel.util.enums.AeroLine;
 import jakarta.persistence.*;
 import lombok.*;
 

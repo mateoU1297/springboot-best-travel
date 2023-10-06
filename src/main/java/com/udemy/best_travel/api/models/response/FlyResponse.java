@@ -1,6 +1,6 @@
 package com.udemy.best_travel.api.models.response;
 
-import com.udemy.best_travel.util.AeroLine;
+import com.udemy.best_travel.util.enums.AeroLine;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,6 +1,6 @@
 package com.udemy.best_travel.infraestructure.abstract_services;
 
-import com.udemy.best_travel.util.SortType;
+import com.udemy.best_travel.util.enums.SortType;
 import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
