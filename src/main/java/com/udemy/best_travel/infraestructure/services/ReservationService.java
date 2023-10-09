@@ -11,7 +11,7 @@ import com.udemy.best_travel.infraestructure.abstract_services.IReservationServi
 import com.udemy.best_travel.infraestructure.helpers.ApiCurrencyConnectorHelper;
 import com.udemy.best_travel.infraestructure.helpers.BlackListHelper;
 import com.udemy.best_travel.infraestructure.helpers.CustomerHelper;
-import com.udemy.best_travel.util.BestTravelUtil;
+import com.udemy.best_travel.infraestructure.helpers.EmailHelper;
 import com.udemy.best_travel.util.enums.Tables;
 import com.udemy.best_travel.util.exceptions.IdNotFoundException;
 import lombok.AllArgsConstructor;
@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Currency;
+import java.util.Objects;
 import java.util.UUID;
 
 @Transactional
@@ -38,6 +39,7 @@ public class ReservationService implements IReservationService {
     private final CustomerHelper customerHelper;
     private final BlackListHelper blackListHelper;
     private final ApiCurrencyConnectorHelper currencyConnectorHelper;
+    private final EmailHelper emailHelper;
 
     public static final BigDecimal charges_price_percentage = BigDecimal.valueOf(0.20);
 
@@ -63,6 +65,9 @@ public class ReservationService implements IReservationService {
         var reservationPersisted = reservationRepository.save(reservationToPersist);
 
         this.customerHelper.incrase(customer.getDni(), ReservationService.class);
+
+        if(Objects.nonNull(request.getEmail()))
+            this.emailHelper.sendMail(request.getEmail(), customer.getFullName(), Tables.reservation.name());
 
         return this.entityToResponse(reservationPersisted);
     }

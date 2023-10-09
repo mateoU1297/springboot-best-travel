@@ -10,6 +10,7 @@ import com.udemy.best_travel.domain.repositories.TourRepository;
 import com.udemy.best_travel.infraestructure.abstract_services.ITourService;
 import com.udemy.best_travel.infraestructure.helpers.BlackListHelper;
 import com.udemy.best_travel.infraestructure.helpers.CustomerHelper;
+import com.udemy.best_travel.infraestructure.helpers.EmailHelper;
 import com.udemy.best_travel.infraestructure.helpers.TourHelper;
 import com.udemy.best_travel.util.BestTravelUtil;
 import com.udemy.best_travel.util.enums.Tables;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -35,6 +37,7 @@ public class TourService implements ITourService {
     private final TourHelper tourHelper;
     private final CustomerHelper customerHelper;
     private final BlackListHelper blackListHelper;
+    private final EmailHelper emailHelper;
 
     @Override
     public TourResponse create(TourRequest request) {
@@ -59,6 +62,9 @@ public class TourService implements ITourService {
         var tourSaved = this.tourRepository.save(tourToSave);
 
         this.customerHelper.incrase(customer.getDni(), TourService.class);
+
+        if(Objects.nonNull(request.getEmail()))
+            this.emailHelper.sendMail(request.getEmail(), customer.getFullName(), Tables.tour.name());
 
         return  TourResponse.builder()
                 .reservationIds(tourSaved.getReservations()

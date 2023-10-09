@@ -10,6 +10,7 @@ import com.udemy.best_travel.domain.repositories.TicketRepository;
 import com.udemy.best_travel.infraestructure.abstract_services.ITicketService;
 import com.udemy.best_travel.infraestructure.helpers.BlackListHelper;
 import com.udemy.best_travel.infraestructure.helpers.CustomerHelper;
+import com.udemy.best_travel.infraestructure.helpers.EmailHelper;
 import com.udemy.best_travel.util.BestTravelUtil;
 import com.udemy.best_travel.util.enums.Tables;
 import com.udemy.best_travel.util.exceptions.IdNotFoundException;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.UUID;
 
 @Transactional
@@ -34,6 +36,7 @@ public class TicketService implements ITicketService {
     private final TicketRepository ticketRepository;
     private final CustomerHelper customerHelper;
     private final BlackListHelper blackListHelper;
+    private final EmailHelper emailHelper;
 
     public static final BigDecimal charges_price_percentage = BigDecimal.valueOf(0.25);
 
@@ -58,6 +61,9 @@ public class TicketService implements ITicketService {
         var ticketPersisted = this.ticketRepository.save(ticketToPersist);
 
         this.customerHelper.incrase(customer.getDni(), TicketService.class);
+
+        if(Objects.nonNull(request.getEmail()))
+            this.emailHelper.sendMail(request.getEmail(), customer.getFullName(), Tables.ticket.name());
 
         log.info("Ticket saved with id: {}", ticketPersisted.getId());
 
