@@ -8,13 +8,13 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class WebClientConfig {
 
-    @Value(value = "{api.base.url}")
+    @Value(value = "${api.base.url}")
     private String baseUrl;
 
-    @Value(value = "{api.api-key}")
+    @Value(value = "${api.api-key}")
     private String apiKey;
 
-    @Value(value = "{api.api-key.header}")
+    @Value(value = "${api.api-key.header}")
     private String apiKeyHeader;
 
     @Bean
