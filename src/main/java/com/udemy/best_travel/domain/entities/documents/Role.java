@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,5 +15,5 @@ import java.util.List;
 public class Role {
 
     @Field(name = "granted_authorities")
-    private List<String> grantedAuthorities;
+    private Set<String> grantedAuthorities;
 }
