@@ -55,7 +55,7 @@ public class ExcelService implements ReportService {
 
         var header = sheet.createRow(0);
         var headerStyle = workbook.createCellStyle();
-        headerStyle.setFillBackgroundColor(IndexedColors.RED.getIndex());
+        headerStyle.setFillForegroundColor(IndexedColors.RED.getIndex());
         headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
         var font = workbook.createFont();
@@ -66,15 +66,15 @@ public class ExcelService implements ReportService {
 
         var headerCell = header.createCell(0);
         headerCell.setCellValue(COLUMN_CUSTOMER_ID);
-        header.setRowStyle(headerStyle);
+        headerCell.setCellStyle(headerStyle);
 
         headerCell = header.createCell(1);
         headerCell.setCellValue(COLUMN_CUSTOMER_NAME);
-        header.setRowStyle(headerStyle);
+        headerCell.setCellStyle(headerStyle);
 
         headerCell = header.createCell(2);
         headerCell.setCellValue(COLUMN_CUSTOMER_PURCHASES);
-        header.setRowStyle(headerStyle);
+        headerCell.setCellStyle(headerStyle);
 
         var style = workbook.createCellStyle();
         style.setWrapText(true);
@@ -105,6 +105,7 @@ public class ExcelService implements ReportService {
 
         try(var outputStream = new FileOutputStream(fileLocation)) {
             workbook.write(outputStream);
+            workbook.close();
         } catch(IOException e) {
             log.error("Cant create Excel", e);
             throw new RuntimeException();
