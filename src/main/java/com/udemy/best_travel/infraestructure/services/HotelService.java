@@ -1,8 +1,8 @@
 package com.udemy.best_travel.infraestructure.services;
 
 import com.udemy.best_travel.api.models.response.HotelResponse;
-import com.udemy.best_travel.domain.entities.HotelEntity;
-import com.udemy.best_travel.domain.repositories.HotelRepository;
+import com.udemy.best_travel.domain.entities.jpa.HotelEntity;
+import com.udemy.best_travel.domain.repositories.jpa.HotelRepository;
 import com.udemy.best_travel.infraestructure.abstract_services.IHotelService;
 import com.udemy.best_travel.util.constants.CacheConstants;
 import com.udemy.best_travel.util.enums.SortType;

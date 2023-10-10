@@ -1,8 +1,8 @@
 package com.udemy.best_travel.infraestructure.helpers;
 
-import com.udemy.best_travel.domain.entities.*;
-import com.udemy.best_travel.domain.repositories.ReservationRepository;
-import com.udemy.best_travel.domain.repositories.TicketRepository;
+import com.udemy.best_travel.domain.entities.jpa.*;
+import com.udemy.best_travel.domain.repositories.jpa.ReservationRepository;
+import com.udemy.best_travel.domain.repositories.jpa.TicketRepository;
 import com.udemy.best_travel.infraestructure.services.ReservationService;
 import com.udemy.best_travel.infraestructure.services.TicketService;
 import com.udemy.best_travel.util.BestTravelUtil;

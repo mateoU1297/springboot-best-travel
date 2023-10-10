@@ -1,6 +1,6 @@
-package com.udemy.best_travel.domain.repositories;
+package com.udemy.best_travel.domain.repositories.jpa;
 
-import com.udemy.best_travel.domain.entities.FlyEntity;
+import com.udemy.best_travel.domain.entities.jpa.FlyEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

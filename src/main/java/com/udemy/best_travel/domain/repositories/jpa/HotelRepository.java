@@ -1,6 +1,6 @@
-package com.udemy.best_travel.domain.repositories;
+package com.udemy.best_travel.domain.repositories.jpa;
 
-import com.udemy.best_travel.domain.entities.HotelEntity;
+import com.udemy.best_travel.domain.entities.jpa.HotelEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.math.BigDecimal;

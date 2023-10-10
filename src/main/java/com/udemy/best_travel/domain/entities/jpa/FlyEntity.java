@@ -1,4 +1,4 @@
-package com.udemy.best_travel.domain.entities;
+package com.udemy.best_travel.domain.entities.jpa;
 
 import com.udemy.best_travel.util.enums.AeroLine;
 import jakarta.persistence.*;

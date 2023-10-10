@@ -1,8 +1,8 @@
 package com.udemy.best_travel.infraestructure.services;
 
 import com.udemy.best_travel.api.models.response.FlyResponse;
-import com.udemy.best_travel.domain.entities.FlyEntity;
-import com.udemy.best_travel.domain.repositories.FlyRepository;
+import com.udemy.best_travel.domain.entities.jpa.FlyEntity;
+import com.udemy.best_travel.domain.repositories.jpa.FlyRepository;
 import com.udemy.best_travel.infraestructure.abstract_services.IFlyService;
 import com.udemy.best_travel.util.constants.CacheConstants;
 import com.udemy.best_travel.util.enums.SortType;

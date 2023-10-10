@@ -1,7 +1,7 @@
 package com.udemy.best_travel.infraestructure.services;
 
-import com.udemy.best_travel.domain.entities.CustomerEntity;
-import com.udemy.best_travel.domain.repositories.CustomerRepository;
+import com.udemy.best_travel.domain.entities.jpa.CustomerEntity;
+import com.udemy.best_travel.domain.repositories.jpa.CustomerRepository;
 import com.udemy.best_travel.infraestructure.abstract_services.ReportService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

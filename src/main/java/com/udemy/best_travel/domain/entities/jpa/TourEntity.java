@@ -1,5 +1,8 @@
-package com.udemy.best_travel.domain.entities;
+package com.udemy.best_travel.domain.entities.jpa;
 
+import com.udemy.best_travel.domain.entities.jpa.CustomerEntity;
+import com.udemy.best_travel.domain.entities.jpa.ReservationEntity;
+import com.udemy.best_travel.domain.entities.jpa.TicketEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
