@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.UUID;
-
 @Document(collection = "app_users")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,6 +17,7 @@ public class AppUserDocument {
     @Id
     private String id;
     private String dni;
+    private String username;
     private boolean enabled;
     private String password;
     private Role roles;
