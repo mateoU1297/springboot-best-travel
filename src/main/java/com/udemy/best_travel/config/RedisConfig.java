@@ -28,15 +28,12 @@ public class RedisConfig {
 
     @Value(value = "${cache.redis.address}")
     private String serverAddress;
-    @Value(value = "${cache.redis.password}")
-    private String serverPassword;
 
     @Bean
     public RedissonClient redissonClient() {
         var config = new Config();
         config.useSingleServer()
-                .setAddress(serverAddress)
-                .setPassword(serverPassword);
+                .setAddress(serverAddress);
 
         return Redisson.create(config);
     }
