@@ -20,5 +20,5 @@ public class AppUserDocument {
     private String username;
     private boolean enabled;
     private String password;
-    private Role roles;
+    private Role role;
 }

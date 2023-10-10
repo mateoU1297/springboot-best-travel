@@ -14,6 +14,6 @@ import java.util.List;
 @Builder
 public class Role {
 
-    @Field(value = "granted_authorities")
+    @Field(name = "granted_authorities")
     private List<String> grantedAuthorities;
 }

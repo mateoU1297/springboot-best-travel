@@ -31,11 +31,21 @@ public class AppUserService implements ModifyUserService {
 
     @Override
     public Map<String, List<String>> addRole(String username, String role) {
-        return null;
+        var user = this.appUserRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(COLLECTION_NAME));
+        user.getRole().getGrantedAuthorities().add(role);
+        var userSaved = this.appUserRepository.save(user);
+        var authorities = userSaved.getRole().getGrantedAuthorities();
+        return Collections.singletonMap(userSaved.getUsername(), authorities);
     }
 
     @Override
     public Map<String, List<String>> removeRole(String username, String role) {
-        return null;
+        var user = this.appUserRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(COLLECTION_NAME));
+        user.getRole().getGrantedAuthorities().remove(role);
+        var userSaved = this.appUserRepository.save(user);
+        var authorities = userSaved.getRole().getGrantedAuthorities();
+        return Collections.singletonMap(userSaved.getUsername(), authorities);
     }
 }
