@@ -22,7 +22,7 @@ public class BestTravelUtil {
         return now.plusHours(randomHours);
     }
 
-    public void writeNotification(String text, String path) throws IOException {
+    public static void writeNotification(String text, String path) throws IOException {
         var fileWriter = new FileWriter(path, true);
         var bufferedWrite = new BufferedWriter(fileWriter);
         try(fileWriter; bufferedWrite) {

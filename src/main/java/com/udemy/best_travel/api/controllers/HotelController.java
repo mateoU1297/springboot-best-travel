@@ -2,6 +2,7 @@ package com.udemy.best_travel.api.controllers;
 
 import com.udemy.best_travel.api.models.response.HotelResponse;
 import com.udemy.best_travel.infraestructure.abstract_services.IHotelService;
+import com.udemy.best_travel.util.annotations.Notify;
 import com.udemy.best_travel.util.enums.SortType;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,7 @@ public class HotelController {
     private final IHotelService hotelService;
 
     @GetMapping
+    @Notify
     public ResponseEntity<Page<HotelResponse>> getAll(
             @RequestParam Integer page,
             @RequestParam Integer size,
